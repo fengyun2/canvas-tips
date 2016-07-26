@@ -1,0 +1,45 @@
+{
+  "name": "stylus-tutorial",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-register": "^6.11.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-jshint": "^2.0.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-stylus": "^2.5.0",
+    "gulp-watch": "^4.3.9",
+    "nib": "^1.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fengyun2/stylus-tutorial.git"
+  },
+  "keywords": [
+    "CSS",
+    "stylus",
+    "stylus-tutorial"
+  ],
+  "author": "Lu Yun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fengyun2/stylus-tutorial/issues"
+  },
+  "homepage": "https://github.com/fengyun2/stylus-tutorial#readme"
+}
