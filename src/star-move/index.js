@@ -7,6 +7,8 @@
 
 'use strict';
 
+// let console = require('better-console')
+
 // 星星效果
 (function () {
     if (!window.addEventListener) return;
@@ -50,7 +52,11 @@
         redraw()
     }
 
+    console.log('before resize: ', settings.height);
+
     resizeCanvas()
+
+    // console.log('after resize: ', settings.height);
 
     window.addEventListener('resize', resizeCanvas)
 
@@ -140,11 +146,13 @@
         }
 
         for (let i = 0; i < settings.density; i++) {
+            console.log('i: ', i)
             if (Math.random() > 0.97) {
                 new Star()
             }
         }
 
+        // console.log('stars: ', stars)
         // 星星实时移动
         for (let i in stars) {
             stars[i].draw()
