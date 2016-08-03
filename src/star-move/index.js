@@ -2,7 +2,7 @@
  * @Author: fengyun2
  * @Date:   2016-08-03 18:04:48
  * @Last Modified by:   fengyun2
- * @Last Modified time: 2016-08-03 18:45:11
+ * @Last Modified time: 2016-08-03 18:49:26
  */
 
 'use strict';
@@ -14,7 +14,7 @@
     if (!canvas.getContext) return;
     const ctx = canvas.getContext('2d')
 
-    let starts = {},
+    let stars = {},
         particleIndex = 0,
         settings = {
             r: 1400,
@@ -77,5 +77,11 @@
         this.vx = Math.random() * 0.05 + 0.025 // 水平偏移,也是移动速度
 
         // 星星的尺寸
+        this.particleSize = 0.5 + (Math.random() + 0.1 / 4)
+        particleIndex++
+        stars[particleIndex] = this
+        this.alpha = 0.0
+        this.maxAlpha = 0.2 + (this.y / canvas.height) * Math.random() * 0.8
+        this.alphaAction = 1
     }
 })();
