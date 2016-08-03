@@ -8,9 +8,10 @@
 'use strict';
 
 // 星星效果
-(function() {
+(function () {
     if (!window.addEventListener) return;
     const canvas = document.querySelector('#starCanvas')
+    console.log('canvas', canvas)
     if (!canvas.getContext) return;
     const ctx = canvas.getContext('2d')
 
@@ -28,7 +29,7 @@
             maxAlpha: 1
         };
 
-    let getMinRandom = function() {
+    let getMinRandom = function () {
         let rand = Math.random();
         // step 的大小决定了星星靠近地球的巨龙度
         let step = Math.ceil(1 / (1 - rand));
@@ -68,9 +69,9 @@
 
         let a = canvas.width / 2,
             b = canvas.height - settings.height + settings.r
-            // 横坐标随机
+        // 横坐标随机
         this.x = Math.floor(Math.random() * canvas.width)
-            // 纵坐标需要在圆弧越往上,越稀疏
+        // 纵坐标需要在圆弧越往上,越稀疏
         this.offsety = getMinRandom() * (canvas.height - settings.height)
         this.y = b - Math.sqrt(settings.r * settings.r - (this.x - a) * (this.x - a)) - this.offsety
 
@@ -84,4 +85,78 @@
         this.maxAlpha = 0.2 + (this.y / canvas.height) * Math.random() * 0.8
         this.alphaAction = 1
     }
+
+    Star.prototype.draw = function () {
+        // 横坐标移动
+        this.x += this.vx
+        // 根据切线方向进行偏移
+        // y坐标
+        this.y = canvas.height - settings.height + settings.r - Math.sqrt(settings.r * settings.r - (this.x - canvas.width / 2) * (this.x - canvas.width / 2)) - this.offsety
+
+        // 透明度慢慢起来
+        if (this.alphaAction === 1) {
+            if (this.alpha < this.maxAlpha) {
+                this.alpha += .005
+            } else {
+                this.alphaAction = -1
+            }
+        } else {
+            if (this.alpha > 0.2) {
+                this.alpha -= 0.002
+            } else {
+                this.alphaAction = 1
+            }
+        }
+
+        if (this.x + (this.particleSize * 2) >= settings.rightWall) {
+            // x到左侧
+            this.x = this.x - settings.rightWall
+        }
+
+        // 绘制星星
+        ctx.beginPath()
+        ctx.fillStyle = "rgba(255, 255, 255," + this.alpha.toString() + ")"
+        ctx.arc(this.x, this.y, this.particleSize, 0, Math.PI * 2, true)
+        ctx.closePath()
+        ctx.fill()
+    }
+
+    function render() {
+        redraw()
+
+        // 星星的数目
+        // IE下CPU性能有限,数目小
+        let length = 400
+        if (!history.pushState) {
+            // IE9
+            length = 200
+        } else if (document.msHidden != undefined) {
+            // IE10+
+            length = 300
+        }
+
+        if (Object.keys(stars).length > length) {
+            settings.density = 0
+        }
+
+        for (let i = 0; i < settings.density; i++) {
+            if (Math.random() > 0.97) {
+                new Star()
+            }
+        }
+
+        // 星星实时移动
+        for (let i in stars) {
+            stars[i].draw()
+        }
+
+        requestAnimationFrame(render)
+    }
+
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = function (fn) {
+            setTimeout(fn, 17)
+        }
+    }
+    render()
 })();
