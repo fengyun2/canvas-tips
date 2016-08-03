@@ -1,0 +1,23 @@
+/*
+* @Author: fengyun2
+* @Date:   2016-08-03 18:04:48
+* @Last Modified by:   fengyun2
+* @Last Modified time: 2016-08-03 18:16:56
+*/
+body {
+  margin: 0;
+}
+.header {
+    position: relative;
+    background: url('../../assets/img/background.jpg') center center no-repeat;
+    height: 1000px;
+    overflow: hidden;
+}
+
+.header > canvas {
+    position: absolute;
+    width: 1920px;
+    height: 100%;
+    left: 50%;
+    margin-left: -960px;
+}
