@@ -123,43 +123,45 @@
     ctx.beginPath()
     // ctx.fillStyle = "rgba(255, 255, 255," + this.alpha.toString() + ")"
     ctx.fillStyle = "rgb(255,0,0)"
-    ctx.arc(this.x, this.y, this.particleSize, 0, Math.PI * 2, true)
+    // ctx.arc(this.x, this.y, this.particleSize, 0, Math.PI * 2, true)
+    ctx.arc(this.x, this.y, 5, 0, Math.PI * 2, true)
     ctx.closePath()
     ctx.fill()
   }
 
   function render() {
-    console.log('render...')
-    redraw()
+    redraw();
 
     // 星星的数目
-    // IE下CPU性能有限,数目小
-    let length = 4
+    // IE下CUP性能有限，数目小
+    let length = 4;
     if (!history.pushState) {
       // IE9
-      length = 2
+      length = 2;
     } else if (document.msHidden != undefined) {
       // IE10+
-      length = 3
+      length = 3;
     }
 
-    if (Object.keys(stars).length > length) {
-      settings.density = 0
+    if (Object.keys(stars).length >= length) {
+      settings.density = 0;
     }
 
     for (let i = 0; i < settings.density; i++) {
+      if (Object.keys(stars).length >= length) {
+        settings.density = 0;
+      }
       if (Math.random() > 0.97) {
-        new Star()
+        new Star();
       }
     }
-    console.info('length: ', length)
-    console.log('stars: ', Object.keys(stars).length)
+    console.log('stars.length: ', Object.keys(stars).length)
     // 星星实时移动
     for (let i in stars) {
-      stars[i].draw()
+      stars[i].draw();
     }
 
-    requestAnimationFrame(render)
+    requestAnimationFrame(render);
   }
 
   if (!window.requestAnimationFrame) {
